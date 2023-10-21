@@ -86,7 +86,8 @@ class OauthCallback(APIView):
                 token = Token.objects.create(user=new_user)
                 
                 
-            return redirect(f'http://localhost:3000/dashboard/?token={token.key}')
+                
+            return redirect(f'http://localhost:3000/oauth/jump/?token={token.key}')
                             
         else:
             return HttpResponseBadRequest('Authorization code not found')
