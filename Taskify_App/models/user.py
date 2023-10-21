@@ -21,11 +21,11 @@ class User(AbstractUser):
     #     Permission, related_name='custom_user_set')
     
 
-    def __str__(self):
-        return self.name + '(' + str(self.enrollment_no) + ')'
+    
 
     class Meta:
         unique_together=('name','enrollment_no')
 
-
+    # def __str__(self):
+    #     return self.username
 #done(see video custom user model)

@@ -59,26 +59,34 @@ class OauthCallback(APIView):
 
 
             try:
-                enrollment = user_data['student']['enrolmentNumber']
-                existing_user = User.objects.get(enrollment_no=enrollment)
+                # enrollment = user_data['student']['enrolmentNumber']
+                username=user_data['username']
+                existing_user = User.objects.get(username=username)
                 existing_user.year = user_data['student']['currentYear']
                 existing_user.image = user_data['person']['displayPicture']
                 existing_user.email = user_data['contactInformation']['instituteWebmailAddress']
                 existing_user.save()
-                token = Token.objects.get(user=existing_user).key
+                print(existing_user)
+                token = Token.objects.get(user=existing_user)
                 print(token.key)
+                print("existing")
             except User.DoesNotExist:
                 new_user=User.objects.create(
+                    username=user_data['username'],
+                    password='grsgtrgfsrf',
                     name=user_data['person']['fullName'],
                     year=user_data['student']['currentYear'],
                     enrollment_no=user_data['student']['enrolmentNumber'],
                     email=user_data['contactInformation']['instituteWebmailAddress'],
                     image='https://channeli.in' +user_data['person']['displayPicture'],
                 )
-                token = Token.objects.create(user=new_user).key
-                # print(token.key)
+                new_user.is_staff=True
+                new_user.save()
+                print(new_user)
+                token = Token.objects.create(user=new_user)
                 
-            return redirect((f'http://localhost:3000/?token={token}'))
+                
+            return redirect(f'http://localhost:3000/dashboard/?token={token.key}')
                             
         else:
             return HttpResponseBadRequest('Authorization code not found')

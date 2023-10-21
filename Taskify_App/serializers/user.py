@@ -4,7 +4,7 @@ from .project import ProjectSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    projects = ProjectSerializer(many=True)
+    projects = ProjectSerializer(many=True,read_only=True)
 
     class Meta:
 
