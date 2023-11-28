@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from Taskify_App.serializers import *
-from Taskify_App.models import *
+from Taskify_App.models.list import List
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.

@@ -18,6 +18,7 @@ urlpatterns = [
     path('',include(router.urls)),
     path('auth/', include('rest_framework.urls')),
     path('oauth/callback/',OauthCallback.as_view()),
+    path('check_login/',check_login),
     # path('open_auth/callback/',OauthCallback.as_view()),
 
    

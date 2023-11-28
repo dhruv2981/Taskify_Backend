@@ -1,6 +1,8 @@
 from django.db import models
 from .project import Project
 from Taskify_App.utils import generate_unique_colour
+import secrets
+
 
 
 class List(models.Model):
@@ -11,6 +13,10 @@ class List(models.Model):
 
     def __str__(self):
         return self.name
+    
+   
+                
+
     class Meta:
         unique_together=('name','project')
 #done

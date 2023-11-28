@@ -8,11 +8,11 @@ class User(AbstractUser):
     ]
     
     name = models.CharField(max_length=60)
-    year = models.PositiveSmallIntegerField()
+    year = models.IntegerField(null=True,blank=True)
     enabled=models.BooleanField(default=True)
     role=models.CharField(max_length=1,choices=user_role,default='n')
     email=models.EmailField(max_length=60)
-    enrollment_no=models.BigIntegerField(unique=True)
+    enrollment_no=models.BigIntegerField(unique=True,null=True,blank=True)
     image=models.CharField(null=True,blank=True,max_length=400)
 
     # Provide unique related_name arguments to avoid clashes

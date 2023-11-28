@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from Taskify_App.models import *
-from .project import ProjectSerializer
+from .project import ProjectOnlySerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    projects = ProjectSerializer(many=True,read_only=True)
+    projects = ProjectOnlySerializer(many=True,read_only=True)
 
     class Meta:
 

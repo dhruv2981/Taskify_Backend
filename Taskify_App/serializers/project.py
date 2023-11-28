@@ -4,8 +4,13 @@ from .list import ListSerializer
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    list_list = ListSerializer(many=True, read_only=True)
+    lists = ListSerializer(many=True, read_only=True)
 
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class ProjectOnlySerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Project
