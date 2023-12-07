@@ -49,9 +49,12 @@ class OauthCallback(APIView):
 
             }
             url = f'https://channeli.in/open_auth/token/'
+            print("how")
             response = requests.post(url, data=data).json()
+            print(response,"response")
             access_token = response['access_token']
             request.session['access_token'] = access_token
+            print(access_token,"abc")
 
             # making a get request to get data
             url_toget_data = 'https://channeli.in/open_auth/get_user_data/'

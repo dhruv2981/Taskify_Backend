@@ -6,3 +6,4 @@ from .list import ListSerializer
 from .log import LogSerializer
 from .project_role import Project_roleSerializer
 from .notification import NotificationSerializer
+from .project import ProjectOnlySerializer

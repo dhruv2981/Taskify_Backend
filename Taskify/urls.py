@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from Taskify_App.Channels.routing import websocket_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('taskify/', include('Taskify_App.urls')),
+    path('',include(websocket_urlpatterns)),
     path('gettoken/',TokenObtainPairView.as_view(),name='token_obtain_pair'),
     path('refreshtoken/',TokenRefreshView.as_view(),name='token_refresh'),
 ]
+# dir/Taskify/Taskify_App/Channels/routing.py

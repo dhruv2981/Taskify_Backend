@@ -14,15 +14,7 @@ class User(AbstractUser):
     email=models.EmailField(max_length=60)
     enrollment_no=models.BigIntegerField(unique=True,null=True,blank=True)
     image=models.CharField(null=True,blank=True,max_length=400)
-
-    # Provide unique related_name arguments to avoid clashes
-    # groups = models.ManyToManyField(Group, related_name='custom_user_set')
-    # user_permissions = models.ManyToManyField(
-    #     Permission, related_name='custom_user_set')
-    
-
-    
-
+ 
     class Meta:
         unique_together=('name','enrollment_no')
 

@@ -19,4 +19,5 @@ class List(models.Model):
 
     class Meta:
         unique_together=('name','project')
+        ordering=['id']
 #done

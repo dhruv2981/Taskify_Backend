@@ -7,4 +7,4 @@ from .log import LogViewSet
 from .notification import NotificationViewSet
 from .project_role import Project_roleViewSet
 from .login import OauthCallback
-from .login import check_login
+from .login import check_login,Logout
