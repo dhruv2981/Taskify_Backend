@@ -1,12 +1,8 @@
 from rest_framework import viewsets
-from Taskify_App.serializers import *
-from Taskify_App.models import *
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.permissions import IsAuthenticated
-from Taskify_App.models import Project,List
+from Taskify_App.serializers import CardSerializer
+from Taskify_App.models import Card, List, Project
 from django.http import HttpResponse
-
-# Create your views here.
+from rest_framework.permissions import IsAuthenticated
 
 
 class CardViewSet(viewsets.ModelViewSet):
@@ -16,27 +12,24 @@ class CardViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         card = self.get_object()
-        list = List.objects.get(pk=card.list.id)
-        project = Project.objects.get(pk=list.project.id)
-        if ((request.user.role == 'n') and (request.user.id not in project.member.all())):
-            return HttpResponse("You dont have permission to delete card in this project.")
+        list_obj = List.objects.get(pk=card.list.id)
+        project = Project.objects.get(pk=list_obj.project.id)
+        if (request.user.role == 'n') and not project.member.filter(id=request.user.id).exists():
+            return HttpResponse("You don't have permission to delete card in this project.")
         return super().destroy(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
-        card = self.get_object()
-        list = List.objects.get(pk=card.list.id)
-        project = Project.objects.get(pk=list.project.id)
-        if ((request.user.role == 'n') and not project.member.filter(id=request.user.id).exists()):
-            return HttpResponse(
-                "You dont have permission to create card in this project.")
+        # Adjust this line based on your request data
+        list_obj = List.objects.get(pk=request.data['list'])
+        project = Project.objects.get(pk=list_obj.project.id)
+        if (request.user.role == 'n') and not project.member.filter(id=request.user.id).exists():
+            return HttpResponse("You don't have permission to create card in this project.")
         return super().create(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         card = self.get_object()
-        list = List.objects.get(pk=card.list.id)
-        project = Project.objects.get(pk=list.project.id)
-        if ((request.user.role == 'n') and not project.member.filter(id=request.user.id).exists()):
-            return HttpResponse(
-                "You dont have permission to update card in this project.")
+        list_obj = List.objects.get(pk=card.list.id)
+        project = Project.objects.get(pk=list_obj.project.id)
+        if (request.user.role == 'n') and not project.member.filter(id=request.user.id).exists():
+            return HttpResponse("You don't have permission to update card in this project.")
         return super().update(request, *args, **kwargs)
-   

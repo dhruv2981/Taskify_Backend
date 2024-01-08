@@ -14,8 +14,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         project = self.get_object()
-        if ((request.user.role == 'n') and (request.user.id not in project.member.all())):
-            return HttpResponse("You dont have permission to delete card in this project.")
+        if (request.user.role == 'n') and not project.member.filter(id=request.user.id).exists():
+            return HttpResponse("You don't have permission to delete card in this project.")
         return super().destroy(request, *args, **kwargs)
 
 
