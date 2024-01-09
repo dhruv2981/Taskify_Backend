@@ -111,10 +111,11 @@ DATABASES = {
         'NAME': 'taskify',
         'USER': 'dhruv',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
